@@ -75,27 +75,23 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 	char	*str;
-	size_t	max_len;
 
+	str = (char *)malloc(sizeof(*s) * (len + 1));
+	if (str == 0)
+		return (NULL);
 	i = 0;
 	j = 0;
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	max_len = ft_strlen(s) - start;
-	if (max_len > len)
-		max_len = len;
-	str = (char *)malloc(sizeof(char) * (max_len + 1));
-	if (!str)
-		return (NULL);
-	while (s[i] && i < (char)start)
-		i++;
-	while (j < (int)(max_len))
+	while (s[i])
 	{
-		str[j] = s[i + j];
-		j++;
+		if (i >= start && j < len)
+		{
+			str[j] = s[i];
+			j++;
+		}
+		i++;
 	}
 	str[j] = 0;
 	return (str);
